@@ -1,4 +1,3 @@
-import { GetStaticPropsContext } from 'next';
 import { client } from '../../libs/client';
 
 interface Article {
@@ -19,7 +18,7 @@ const formatDate = (date: Date) => {
 
 export default function Home({ article }: {article: Article}) {
   return (
-    <main>
+    <div>
       <h1>{article.title}</h1>
       <p>{formatDate(new Date(article.publishedAt))}</p>
       <div
@@ -27,7 +26,7 @@ export default function Home({ article }: {article: Article}) {
           __html: `${article.contents}`,
         }}
         className="main-contents"/>
-    </main>
+    </div>
   );
 }
 
