@@ -12,9 +12,9 @@ interface Article {
   updatedAt: string,
 }
 
-export default function Home({ news }: {news: Array<Article>}) {
+export default function Home({ news }: { news: Array<Article> }) {
   return (
-    <div>
+    <div className="news">
       <ul>
         {news.map((article) => (
           <li key={article.id}>

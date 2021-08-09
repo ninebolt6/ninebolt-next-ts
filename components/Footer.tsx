@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer>
-      <p>This is footer</p>
+      <p>Copyright © 2021 Ninebolt</p>
     </footer>
   )
 }

@@ -11,24 +11,31 @@ interface Article {
   updatedAt: string,
 }
 
-const formatDate = (date: Date) => {
-  const result = date.getFullYear() + '年' + (date.getMonth()+1) + '月' + date.getDate() + '日';
-  return result;
-}
-
-export default function Home({ article }: {article: Article}) {
+export default function Content({ article }: {article: Article}) {
   return (
-    <div>
+    <article>
       <h1>{article.title}</h1>
-      <p>{formatDate(new Date(article.publishedAt))}</p>
+      <p><time dateTime={convertTimeToJST(article.publishedAt)}>{formatDate(new Date(article.publishedAt))}</time></p>
+      <br/>
       <div
         dangerouslySetInnerHTML={{
           __html: `${article.contents}`,
         }}
         className="main-contents"/>
-    </div>
+    </article>
   );
 }
+
+const convertTimeToJST = (date: string) => {
+  const result = date.substring(0, date.length-1) + '+09:00';
+  return result;
+}
+
+const formatDate = (date: Date) => {
+  const result = date.getFullYear() + '年' + (date.getMonth()+1) + '月' + date.getDate() + '日';
+  return result;
+}
+
 
 export const getStaticPaths = async() => {
   const data: any = await client.get({ endpoint: "news"});
