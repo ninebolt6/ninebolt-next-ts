@@ -1,3 +1,6 @@
-#main {
+@import '../styles/mediaquery.scss';
+
+.main__content {
   margin: 0px auto;
+  max-width: 1000px; // メディアクエリで後で変える
 }

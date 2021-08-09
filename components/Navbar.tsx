@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <nav className={`${styles.navbar} bg-gray-200`}>
+    <nav className={`${styles.navbar} bg-gray-200 mx-auto max-w-screen-md xl:max-w-screen-lg`}>
       <li className="flex">
         <ul><Link href="/">Home</Link></ul>
         <ul><Link href="/profile">Profile</Link></ul>

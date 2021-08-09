@@ -1,9 +1,10 @@
 import { client } from '../../libs/client';
+import Image from 'next/image';
 
 interface Article {
   id: string,
   title: string,
-  image: string,
+  image: CMSImage | undefined,
   contents: string,
   createdAt: string,
   publishedAt: string,
@@ -11,11 +12,18 @@ interface Article {
   updatedAt: string,
 }
 
+interface CMSImage {
+  url: string,
+  height: number,
+  width: number,
+}
+
 export default function Content({ article }: {article: Article}) {
   return (
     <article>
-      <h1>{article.title}</h1>
       <p><time dateTime={convertTimeToJST(article.publishedAt)}>{formatDate(new Date(article.publishedAt))}</time></p>
+      <h1>{article.title}</h1>
+      { article.image === undefined ? null : <Image src={article.image.url} width={article.image.width} height={article.image.height}></Image> }
       <br/>
       <div
         dangerouslySetInnerHTML={{
@@ -45,7 +53,7 @@ export const getStaticPaths = async() => {
     paths,
     fallback: false,
   };
-};
+}
 
 export const getStaticProps = async (context: any) => {
   const id = context.params.id;
@@ -56,4 +64,4 @@ export const getStaticProps = async (context: any) => {
       article: data,
     },
   };
-};
+}
