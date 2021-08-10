@@ -57,10 +57,11 @@ export const getStaticPaths = async() => {
 
 export const getStaticProps = async (context: any) => {
   const id = context.params.id;
-  const data = await client.get({ endpoint: "news", contentId: id});
+  const data: Article = await client.get({ endpoint: "news", contentId: id});
 
   return {
     props: {
+      title: data.title,
       article: data,
     },
   };
