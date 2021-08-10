@@ -1,4 +1,4 @@
-import '../styles/globals.css';
+import '../styles/tailwind.css';
 import '../node_modules/swiper/swiper.scss';
 import '../node_modules/swiper/components/navigation/navigation.scss';
 import '../node_modules/swiper/components/pagination/pagination.scss';
