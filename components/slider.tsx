@@ -1,9 +1,17 @@
-import { SwiperOptions } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Autoplay, Navigation, Pagination, EffectFade, SwiperOptions } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+SwiperCore.use([Autoplay, Navigation, Pagination, EffectFade]);
 
 const options: SwiperOptions = {
   slidesPerView: 1,
   loop: true,
+  autoplay: {
+    delay: 4000,
+    disableOnInteraction: false,
+  },
+  navigation: true,
+  pagination: true,
 }
 
 export default function Slider({ children }: { children: SwiperSlide }) {
