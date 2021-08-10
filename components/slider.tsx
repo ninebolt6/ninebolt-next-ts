@@ -1,7 +1,7 @@
-import SwiperCore, { Autoplay, Navigation, Pagination, EffectFade, SwiperOptions } from 'swiper';
+import SwiperCore, { Autoplay, Pagination, EffectFade, SwiperOptions } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-SwiperCore.use([Autoplay, Navigation, Pagination, EffectFade]);
+SwiperCore.use([Autoplay, Pagination, EffectFade]);
 
 const options: SwiperOptions = {
   slidesPerView: 1,
