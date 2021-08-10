@@ -2,12 +2,18 @@ import '../styles/globals.css';
 import '../node_modules/swiper/swiper.scss';
 import type { AppProps } from 'next/app';
 import Layout from '../components/layout';
+import Head from 'next/head'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <>
+    <Head>
+      <title>Ninebolt</title>
+    </Head>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
   )
 }
 export default MyApp;

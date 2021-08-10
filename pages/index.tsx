@@ -19,6 +19,7 @@ interface Article {
 interface ImagesResponse {
   id: string,
   image: CMSImage,
+  alt?: string,
   createdAt: string,
   publishedAt: string,
   revisedAt: string,
@@ -37,7 +38,7 @@ export default function Home({ news, images }: { news: Array<Article>, images: A
       <Slider>
         {images.map((img) => (
           <SwiperSlide key={img.id} className="text-center">
-            <Image src={img.image.url} width={img.image.width} height={img.image.height}></Image>
+            <Image src={img.image.url} width={img.image.width} height={img.image.height} alt={img.alt ? img.alt : "image"}></Image>
           </SwiperSlide>
         )) }
       </Slider>
