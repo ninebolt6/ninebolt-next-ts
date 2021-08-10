@@ -4,7 +4,7 @@ import Image from 'next/image';
 interface Article {
   id: string,
   title: string,
-  image: CMSImage | undefined,
+  image?: CMSImage,
   contents: string,
   createdAt: string,
   publishedAt: string,
