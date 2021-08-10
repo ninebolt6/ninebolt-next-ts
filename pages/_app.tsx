@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app';
 import Layout from '../components/layout';
 import Head from 'next/head'
 
-import '../styles/tailwind.css';
+import '../styles/tailwind.scss';
 import '../node_modules/swiper/swiper.scss';
 import '../node_modules/swiper/components/pagination/pagination.scss';
 
@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
     <Head>
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8"/> {/* experimental */}
-      <meta name="description">{pageProps.desc ? pageProps.desc : "Nineboltのページです。"}</meta>
+      <meta name="description" content={pageProps.desc ? pageProps.desc : "Nineboltのページです。"}/>
       <title>{pageProps.title ? pageProps.title + " - Ninebolt" : "Ninebolt"}</title>
     </Head>
       <Layout>
