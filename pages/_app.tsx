@@ -12,6 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Head>
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8"/> {/* experimental */}
       <meta name="description" content={pageProps.desc ? pageProps.desc : "Nineboltのページです。"}/>
+      <meta name="robots" content="noindex,nofollow,noarchive" />
       <title>{pageProps.title ? pageProps.title + " - Ninebolt" : "Ninebolt"}</title>
     </Head>
       <Layout>
