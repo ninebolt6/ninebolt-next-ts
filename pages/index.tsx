@@ -4,33 +4,8 @@ import Slider from '../components/slider';
 import { client } from '../libs/client'
 import Image from 'next/image';
 import styles from '../styles/index.module.scss'
+import { Article, ArticleData, ImagesResponse, CMSImage } from 'libs/types';
 
-interface Article {
-  id: string,
-  title: string,
-  image?: CMSImage,
-  contents: string,
-  createdAt: string,
-  publishedAt: string,
-  revisedAt: string,
-  updatedAt: string,
-}
-
-interface ImagesResponse {
-  id: string,
-  image: CMSImage,
-  alt?: string,
-  createdAt: string,
-  publishedAt: string,
-  revisedAt: string,
-  updatedAt: string,
-}
-
-interface CMSImage {
-  url: string,
-  height: number,
-  width: number,
-}
 
 export default function Home({ news, images }: { news: Array<Article>, images: Array<ImagesResponse> }) {
   return (
@@ -67,8 +42,8 @@ const formatDate = (date: Date) => {
 }
 
 export const getStaticProps = async () => {
-  const data: any = await client.get({ endpoint: "news"});
-  const imagesData: any = await client.get({ endpoint: "top-slide" });
+  const data = await client.getList<ArticleData>({ endpoint: "news" });
+  const imagesData = await client.getList<CMSImage>({ endpoint: "top-slide" });
   return {
     props: {
       news: data.contents,

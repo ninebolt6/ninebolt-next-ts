@@ -1,22 +1,6 @@
 import { client } from '../../libs/client';
 import Image from 'next/image';
-
-interface Article {
-  id: string,
-  title: string,
-  image?: CMSImage,
-  contents: string,
-  createdAt: string,
-  publishedAt: string,
-  revisedAt: string,
-  updatedAt: string,
-}
-
-interface CMSImage {
-  url: string,
-  height: number,
-  width: number,
-}
+import { Article } from 'libs/types'
 
 export default function Content({ article }: {article: Article}) {
   return (
@@ -44,7 +28,6 @@ const formatDate = (date: Date) => {
   return result;
 }
 
-
 export const getStaticPaths = async() => {
   const data: any = await client.get({ endpoint: "news"});
   const paths = data.contents.map((content: Article) => `/news/${content.id}`);
@@ -57,7 +40,7 @@ export const getStaticPaths = async() => {
 
 export const getStaticProps = async (context: any) => {
   const id = context.params.id;
-  const data: Article = await client.get({ endpoint: "news", contentId: id});
+  const data = await client.getListDetail<Article>({ endpoint: "news", contentId: id});
 
   return {
     props: {
