@@ -1,6 +1,7 @@
-import { client } from '../../libs/client';
+import { client } from 'libs/client';
+import { convertTimeToJST, formatDate } from 'libs/date';
+import { Article, ArticleData } from 'libs/types'
 import Image from 'next/image';
-import { Article } from 'libs/types'
 
 export default function Content({ article }: {article: Article}) {
   return (
@@ -18,16 +19,6 @@ export default function Content({ article }: {article: Article}) {
   );
 }
 
-const convertTimeToJST = (date: string) => {
-  const result = date.substring(0, date.length-1) + '+09:00';
-  return result;
-}
-
-const formatDate = (date: Date) => {
-  const result = date.getFullYear() + '年' + (date.getMonth()+1) + '月' + date.getDate() + '日';
-  return result;
-}
-
 export const getStaticPaths = async() => {
   const data: any = await client.get({ endpoint: "news"});
   const paths = data.contents.map((content: Article) => `/news/${content.id}`);
@@ -40,7 +31,7 @@ export const getStaticPaths = async() => {
 
 export const getStaticProps = async (context: any) => {
   const id = context.params.id;
-  const data = await client.getListDetail<Article>({ endpoint: "news", contentId: id});
+  const data = await client.getListDetail<ArticleData>({ endpoint: "news", contentId: id});
 
   return {
     props: {

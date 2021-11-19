@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { SwiperSlide } from 'swiper/react';
 import Slider from '../components/slider';
-import { client } from '../libs/client'
+import { client } from 'libs/client'
 import Image from 'next/image';
 import styles from '../styles/index.module.scss'
 import { Article, ArticleData, ImagesResponse, CMSImage } from 'libs/types';
+import { formatDate } from 'libs/date';
 
 
 export default function Home({ news, images }: { news: Array<Article>, images: Array<ImagesResponse> }) {
@@ -34,11 +35,6 @@ export default function Home({ news, images }: { news: Array<Article>, images: A
       </div>
     </>
   );
-}
-
-const formatDate = (date: Date) => {
-  const result = date.getFullYear() + '年' + (date.getMonth()+1) + '月' + date.getDate() + '日';
-  return result;
 }
 
 export const getStaticProps = async () => {
