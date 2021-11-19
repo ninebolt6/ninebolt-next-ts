@@ -1,25 +1,29 @@
 import { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 
 export type Article = ArticleData & MicroCMSContentId & MicroCMSDate;
+export type Category = CategoryData & MicroCMSContentId & MicroCMSDate;
+export type Tag = TagData & MicroCMSContentId & MicroCMSDate;
 
 export interface ArticleData {
   title: string,
-  image?: CMSImage,
-  contents: string,
+  description: string,
+  image?: ImageData,
+  category: Category,
+  tags: Array<Tag>,
+  isUpdated: boolean,
+  markdown: string,
 }
 
-export interface ImagesResponse {
-  id: string,
-  image: CMSImage,
-  alt?: string,
-  createdAt: string,
-  publishedAt: string,
-  revisedAt: string,
-  updatedAt: string,
-}
-
-export interface CMSImage {
+export interface ImageData {
   url: string,
   height: number,
   width: number,
+}
+
+export interface CategoryData {
+  categoryName: string,
+}
+
+export interface TagData {
+  tagName: string,
 }

@@ -12,7 +12,7 @@ export default function Content({ article }: {article: Article}) {
       <br/>
       <div
         dangerouslySetInnerHTML={{
-          __html: `${article.contents}`,
+          __html: `${article.markdown}`,
         }}
         className="main-contents"/>
     </article>
@@ -20,8 +20,8 @@ export default function Content({ article }: {article: Article}) {
 }
 
 export const getStaticPaths = async() => {
-  const data: any = await client.get({ endpoint: "news"});
-  const paths = data.contents.map((content: Article) => `/news/${content.id}`);
+  const data: any = await client.get({ endpoint: "articles" });
+  const paths = data.contents.map((content: Article) => `/article/${content.id}`);
 
   return {
     paths,
@@ -31,7 +31,7 @@ export const getStaticPaths = async() => {
 
 export const getStaticProps = async (context: any) => {
   const id = context.params.id;
-  const data = await client.getListDetail<ArticleData>({ endpoint: "news", contentId: id});
+  const data = await client.getListDetail<ArticleData>({ endpoint: "articles", contentId: id});
 
   return {
     props: {
