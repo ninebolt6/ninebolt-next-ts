@@ -3,8 +3,6 @@ import Layout from '../components/layout';
 import Head from 'next/head'
 
 import '../styles/tailwind.scss';
-import '../node_modules/swiper/swiper.scss';
-import '../node_modules/swiper/components/pagination/pagination.scss';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
