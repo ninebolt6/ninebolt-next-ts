@@ -9,7 +9,7 @@ export default function Home({ articles }: { articles: Array<Article> }) {
   return (
     <>
       <div className="news">
-        <p>お知らせ</p>
+        <p>記事一覧</p>
         <ul>
           {articles.map((article) => (
             <li key={article.id}>
@@ -28,10 +28,10 @@ export default function Home({ articles }: { articles: Array<Article> }) {
 }
 
 export const getStaticProps = async () => {
-  const data = await client.getList<ArticleData>({ endpoint: "articles" });
+  const res = await client.getList<ArticleData>({ endpoint: "articles" });
   return {
     props: {
-      articles: data.contents,
+      articles: res.contents,
     },
   }
 }

@@ -11,7 +11,7 @@ export interface ArticleData {
   category: Category,
   tags: Array<Tag>,
   isUpdated: boolean,
-  markdown: string,
+  body: string,
 }
 
 export interface ImageData {
