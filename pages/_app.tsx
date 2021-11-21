@@ -2,8 +2,7 @@ import type { AppProps } from 'next/app';
 import Layout from '../components/layout';
 import Head from 'next/head'
 
-import '../styles/tailwind.scss';
-
+import 'styles/tailwind.scss';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>

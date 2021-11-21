@@ -1,14 +1,13 @@
+import { client } from "libs/client";
+import { Article, ArticleData, Category } from "libs/types";
 import Link from 'next/link';
-import { client } from 'libs/client'
-import { Article, ArticleData } from 'libs/types';
-import { convertTimeToJST, formatDate } from 'libs/date';
 import Image from 'next/image';
+import { formatDate, convertTimeToJST } from "libs/date";
 
-
-export default function Home({ articles }: { articles: Array<Article> }) {
+export default function CategoryList({ articles, categoryName }: { articles: Array<Article>, categoryName: string }) {
   return (
     <>
-      <p className="text-center">記事一覧</p>
+      <p className="text-center">カテゴリ {categoryName} の記事一覧</p>
       <ul className="justify-center flex flex-wrap">
         {articles.map((article) => (
           <li key={article.id} className="m-2 w-5/12 md:w-auto">
@@ -50,16 +49,35 @@ export default function Home({ articles }: { articles: Array<Article> }) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getStaticPaths = async (context: any) => {
+  const data = await client.getList<ArticleData>({
+    endpoint: "articles",
+    queries: {
+      fields: 'category.id',
+    },
+  });
+  const paths = data.contents.map((content) => `/category/${content.category.id}`);
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export const getStaticProps = async (context: any) => {
+  const id = context.params.id;
+  console.log(id);
   const res = await client.getList<ArticleData>({
     endpoint: "articles",
     queries: {
+      filters: `category[equals]${id}`,
       fields: 'id,title,description,category.categoryName,image,isUpdated,publishedAt,updatedAt',
-    }
+    },
   });
   return {
     props: {
       articles: res.contents,
+      categoryName: res.contents[0].category.categoryName,
     },
-  }
+  };
 }

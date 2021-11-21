@@ -4,6 +4,6 @@ export const convertTimeToJST = (date: string) => {
 }
 
 export const formatDate = (date: Date) => {
-  const result = date.getFullYear() + '年' + (date.getMonth()+1) + '月' + date.getDate() + '日';
+  const result = date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate();
   return result;
 }

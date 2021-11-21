@@ -1,4 +1,6 @@
 .contents {
+  overflow-wrap: break-word;
+
   h2 {
     font-size: 20px;
     font-weight: bold;
@@ -19,15 +21,6 @@
   ul {
     list-style: inside disc;
     margin-bottom: 0.5em;
-  }
-
-  a {
-    @apply text-blue-800;
-    text-decoration: underline;
-  }
-
-  a:hover {
-    @apply text-blue-500;
   }
 
   blockquote {
