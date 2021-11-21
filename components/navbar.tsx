@@ -7,8 +7,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-screen-md xl:max-w-screen-lg">
         <ul className="flex justify-evenly">
           <li><Link href="/">Home</Link></li>
-          <li><Link href="/profile">Profile</Link></li>
-          <li><Link href="/contact">Contact</Link></li>
+          <li><a href="https://twitter.com/ninebolt6">Twitter</a></li>
         </ul>
       </div>
     </nav>

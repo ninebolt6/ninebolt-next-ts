@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import GoogleAnalytics from 'components/googleanalytics';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: any) {
@@ -9,7 +10,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="ja">
-        <Head/>
+        <Head>
+          <GoogleAnalytics />
+        </Head>
         <body>
           <Main />
           <NextScript />
