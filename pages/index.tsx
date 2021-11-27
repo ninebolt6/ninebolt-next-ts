@@ -16,7 +16,7 @@ export default function Home({ articles }: { articles: Array<Article> }) {
               <a className="block bg-indigo-50 p-2 shadow-md rounded-lg text-center">
                 <div className="md:flex">
                   { article.image === undefined ? null : 
-                    <Image src={article.image.url} width={article.image.width/5} height={article.image.height/5} className="md:mx-1"></Image>
+                    <Image src={article.image.url} width={article.image.width/5} height={article.image.height/5} alt="サムネイル" className="md:mx-1"></Image>
                   }
                   <div className="md:mx-2 md:w-2/3 text-left">
                     <div className="flex">
@@ -24,15 +24,15 @@ export default function Home({ articles }: { articles: Array<Article> }) {
                       { article.isUpdated ? 
                         <>
                           <div className="hidden md:flex mr-2">
-                            <Image src="/published.svg" width={18} height={18}></Image>
+                            <img src="/published.svg" width={18} height={18} alt="" />
                             <p className="text-xs md:text-base">{formatDate(new Date(article.publishedAt))}</p>
                           </div>
-                          <Image src="/updated.svg" width={18} height={18}></Image>
+                          <img src="/updated.svg" width={18} height={18} alt=""/>
                           <p className="text-xs md:text-base"><time dateTime={convertTimeToJST(article.updatedAt)}>{formatDate(new Date(article.updatedAt))}</time></p>
                         </>
                           : 
                         <>
-                          <Image src="/published.svg" width={18} height={18}></Image>
+                          <img src="/published.svg" width={18} height={18} alt=""/>
                           <p className="text-xs md:text-base"><time dateTime={convertTimeToJST(article.publishedAt)}>{formatDate(new Date(article.publishedAt))}</time></p>
                         </>
                       }
