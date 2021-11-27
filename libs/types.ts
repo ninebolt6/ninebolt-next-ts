@@ -7,11 +7,12 @@ export type Tag = TagData & MicroCMSContentId & MicroCMSDate;
 export interface ArticleData {
   title: string,
   description: string,
-  image?: ImageData,
   category: Category,
+  image?: ImageData,
   tags: Array<Tag>,
   isUpdated: boolean,
   body: string,
+  relatedArticles: Array<Article>,
 }
 
 export interface ImageData {

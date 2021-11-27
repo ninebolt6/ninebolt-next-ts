@@ -13,43 +13,84 @@ import Link from "next/link";
 
 export default function Content({ article }: { article: Article }) {
   return (
-    <article className="mx-2">
-      <div className="md:flex bg-indigo-50 p-2 shadow-lg rounded-lg text-center">
-        { article.image === undefined ? null : <Image src={article.image.url} width={article.image.width/3} height={article.image.height/3}></Image> }
-        <div className="mx-2 md:w-2/3 text-left">
-          <div className="flex">
-            <Link href={`/category/${article.category.id}`}><a className="text-xs md:text-base px-1 md:mr-2 bg-white rounded-lg">{ article.category.categoryName }</a></Link>
-            { article.isUpdated ? 
-              <>
-                <Image src="/published.svg" width={18} height={18}></Image>
-                <p className="text-xs md:text-base mr-2">{formatDate(new Date(article.publishedAt))}</p>
-                <Image src="/updated.svg" width={18} height={18}></Image>
-                <p className="text-xs md:text-base"><time dateTime={convertTimeToJST(article.updatedAt)}>{formatDate(new Date(article.updatedAt))}</time></p>
-              </>
-                : 
-              <>
-                <Image src="/published.svg" width={18} height={18}></Image>
-                <p className="text-xs md:text-base"><time dateTime={convertTimeToJST(article.publishedAt)}>{formatDate(new Date(article.publishedAt))}</time></p>
-              </>
-            }
+    <>
+      <article className="mx-2">
+        <div className="md:flex bg-indigo-50 p-2 shadow-lg rounded-lg text-center">
+          { article.image === undefined ? null : <Image src={article.image.url} width={article.image.width/3} height={article.image.height/3}></Image> }
+          <div className="mx-2 md:w-2/3 text-left">
+            <div className="flex">
+              <Link href={`/category/${article.category.id}`}><a className="text-xs md:text-base px-1 md:mr-2 bg-white rounded-lg">{ article.category.categoryName }</a></Link>
+              { article.isUpdated ? 
+                <>
+                  <Image src="/published.svg" width={18} height={18}></Image>
+                  <p className="text-xs md:text-base mr-2">{formatDate(new Date(article.publishedAt))}</p>
+                  <Image src="/updated.svg" width={18} height={18}></Image>
+                  <p className="text-xs md:text-base"><time dateTime={convertTimeToJST(article.updatedAt)}>{formatDate(new Date(article.updatedAt))}</time></p>
+                </>
+                  : 
+                <>
+                  <Image src="/published.svg" width={18} height={18}></Image>
+                  <p className="text-xs md:text-base"><time dateTime={convertTimeToJST(article.publishedAt)}>{formatDate(new Date(article.publishedAt))}</time></p>
+                </>
+              }
+            </div>
+            <h1 className="md:text-xl font-bold">{article.title}</h1>
+            <p className="text-sm md:text-base">{article.description}</p>
           </div>
-          <h1 className="md:text-xl font-bold">{article.title}</h1>
-          <p className="text-sm md:text-base">{article.description}</p>
         </div>
+        { shareButton(article) }
+        <div className={styles.contents}>
+          { processor.processSync(article.body).result }
+        </div>
+        { shareButton(article) }
+      </article>
+      <div>
+        <hr/>
+        <p className="my-2 text-center">関連記事</p>
+        <ul className="justify-center flex flex-wrap">
+          {article.relatedArticles.map((article) => (
+            <li key={article.id} className="m-2 w-5/12">
+              <Link href={`/article/${article.id}`}>
+                <a className="block bg-indigo-50 p-2 shadow-md rounded-lg text-center">
+                  <div className="">
+                    { article.image === undefined ? null : 
+                      <Image src={article.image.url} width={article.image.width/5} height={article.image.height/5} className="md:mx-1"></Image>
+                    }
+                    <div className="mx-2 text-left">
+                      <div className="flex">
+                        { article.isUpdated ? 
+                          <>
+                            <div className="hidden md:flex mr-2">
+                              <Image src="/published.svg" width={18} height={18}></Image>
+                              <p className="text-xs md:text-base">{formatDate(new Date(article.publishedAt))}</p>
+                            </div>
+                            <Image src="/updated.svg" width={18} height={18}></Image>
+                            <p className="text-xs md:text-base"><time dateTime={convertTimeToJST(article.updatedAt)}>{formatDate(new Date(article.updatedAt))}</time></p>
+                          </>
+                            : 
+                          <>
+                            <Image src="/published.svg" width={18} height={18}></Image>
+                            <p className="text-xs md:text-base"><time dateTime={convertTimeToJST(article.publishedAt)}>{formatDate(new Date(article.publishedAt))}</time></p>
+                          </>
+                        }
+                      </div>
+                      <p className="text-sm md:text-xl md:font-bold">{article.title}</p>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
-      { shareButton(article) }
-      <div className={styles.contents}>
-        { processor.processSync(article.body).result }
-      </div>
-      { shareButton(article) }
-    </article>
+    </>
   );
 }
 
 const processor = unified().use(rehypeParse, { fragment: true }).use(rehypeHighlight).use(rehypeReact, {
   createElement: React.createElement,
   components: {
-    img: (props: any) => <Image {...props} />,
+    img: (props: any) => <a href={`${props.src}?auto=format`} target="_blank" rel="noopener noreferrer"><Image {...props} /></a>,
   },
 });
 
